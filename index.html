@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updating variables with JS</title>
+    <style>
+        :root{
+            /*declaring variables in css. here root is just like if i app,ly some styling on whole html, and base,spacing, blur are the properties here*/
+            --base:#ffc600;
+            --spacing:10px;
+            --blur:1px;
+            /*The :root selector refers to the top-level element of the document, which is essentially the <html> element. This means that any styles or variables declared inside :root are globally accessible throughout the entire document, to any element inside the HTML.
+
+By declaring CSS variables in :root, they become global variables that can be reused anywhere in the CSS, making styling more flexible and manageable.*/
+        }
+
+        img{
+            padding: var(--spacing); /*padding will be applied on the variable spacing*/
+            background: var(--base); /*background will be applied on the variable base*/
+            filter: blur(var(--blur)); /*filter will be applied on the variable blur*/
+            max-width: 500px;
+            max-height: 500px;
+        }
+
+        .h1{
+            color: var(--base);
+        }
+        body{
+            text-align: center;
+        }
+        body{
+            background-color: #193549;
+            color: white;
+            font-family: 'helvetica neue',sans-serif;
+            font-weight: 100;
+            font-size: 50px;
+        }
+
+        .controls{
+            margin-bottom: 50px;
+        }
+        a{
+            color: var(--base);
+            text-decoration: none;
+        }
+        input{
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+     <h2>Update CSS variables with <span class="h1">Js</span></h2>
+
+     <div class="controls">
+
+        <label for="spacing"> Spacing:</label>
+        <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="spacing"> Blur:</label>
+        <input type="range" name="blur" min="0" max="25" value="1" data-sizing="px">
+
+        <label for="spacing"> Base Color:</label>
+        <input type="color" name="base"  value="#ffc600">
+
+     </div>
+     <img src="https://cdn.pixabay.com/photo/2024/09/23/17/34/vietnam-9069634_1280.png" alt="img">
+
+
+
+<script>
+    const inputs=document.querySelectorAll('.controls input');
+    function handleupdate(){
+        const suffix = this.dataset.sizing || '';//here dataset is an object which will give all the values associatewd with data attribute(line47, data-sizing in this case)
+        document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix);
+
+    }
+
+
+
+    inputs.forEach(input => input.addEventListener('change',handleupdate));
+    inputs.forEach(input => input.addEventListener('mousemove',handleupdate));
+</script>
+</body>
+</html>
